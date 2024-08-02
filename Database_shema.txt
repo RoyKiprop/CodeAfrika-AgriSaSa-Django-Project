@@ -1,0 +1,88 @@
+AgriSaSa System Requirements:
+
+- The admin should be able to register farmers
+- Farmers can post products for sale
+- Admin must verify/approve/reject
+- Farmers can order for any posted products
+- Farmers can pay for the ordered products
+- A farmer can withdraw money from their wallets
+- A farmer can deposit money into their wallets to be used for purchases
+
+Business Rules:
+
+-A commission of 10% is charged for each successful sale. The rest of the amount (90%) is deposited to the farmer who posted the product purchased.
+- There are two plans, Free and Pro Plan. Pro farmers will pay KES. 100 per month to use the services.
+-If a farmer subscribes to a Pro they can pay from the wallet or through Mpesa. But they must initiate the payment, with no automatic deductions.
+
+
+Database Schema:
+---------------
+
+1) Farmer
+  - id: Number
+  - FirstName : Text
+  - LastName: Text
+  - Email: Text 
+  - Phone: Text
+  - Location: Text
+  - plan: choices'(pro': 0, 'free': 1] default pro
+  - isActive: 
+  - isStaff:  
+ 
+Example:
+--------
+1 |Roy | Kiprop | roykiprop590@gmail.com | 0711470560 | Nakuru
+
+4) Account
+  - id: Number
+  - accountNo - Text
+  - farmerID : [Farmer - id]
+  - actual_balance: Number
+  - available_balance: Number
+  - account_type: choices('farmer': 0, 'business': 1)
+
+  Example:
+--------
+1 | 1 | 10000
+
+2) Product
+  - id: Number
+  - farmer : [Farmer - id]
+  - name : Text
+  - category: choices ('poultry': 1, 'dairy': 2, 'vegetables': 3)
+  - description: Text
+  - Quantity: Number
+  - unit_price: Text 
+  - Status : choices('pending': 2, 'appoved': 1, 'rejected': 2] default pending
+
+
+ 
+Example:
+--------
+1 | 1 | DK 777 | For areas such as Bungoma and Kakamega with high rainfall and humidity, disease resistance is the priority | 100 | 2000 KES  | pending
+
+
+3) Orders
+  - id: Number
+  - order_id: Text
+  - product : [Product - id]
+  - farmer:   [Farmer - id]
+  - quantity : Number
+  - totalprice: Text
+  - status : Text Choices('pending': 0,' paid': 1, 'cancelled': 2)  default pending
+  - delivery : Choices('packaging' 0,' shipped': 1, 'delivered': 2 )
+
+
+ 
+Example:
+--------
+1 | 1 | 1 | 2 | 1000 KES | pending
+
+
+5) Transactions
+   - id: Number
+   - farmer_account: [Account - id]
+   - amount: Number
+   - transaction_type: Text Choices ('deposit': 0, 'withdrawal': 1,'commission': 2, 'subscription': 3, 'orders:' 4)
+
+
