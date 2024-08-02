@@ -1,6 +1,10 @@
 # Ignore the virtual environment directory
 env/
 
+# Ignore Database_shema.txt
+Database_shema.txt
+
+
 # You can also add other directories or files to ignore
 # For example:
 
